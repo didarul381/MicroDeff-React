@@ -7,6 +7,9 @@ import BookDetails from './components/BookDetails'
 import Contact from './components/Contact'
 import Booking from './components/Booking'
 import Products from './components/Products'
+import QuizeDetails from './components/QuizeDetails'
+import ProductDetails from './components/ProductDetails'
+import Category from './components/Category'
 
 export const router = createBrowserRouter([
   {
@@ -17,20 +20,28 @@ export const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
-        loader: () =>fetch('https://api.itbook.store/1.0/new'),
+        loader: () =>fetch('https://fakestoreapi.com/products'),
       },
       {
         path: 'home',
         element: <Home />,
-        // loader: () => fetch('books.json'),
-        loader: () =>fetch('https://api.itbook.store/1.0/new'),
+        loader: () =>fetch('https://fakestoreapi.com/products'),
       },
-     
+      
       {
-        path: 'products',
-        element: <Products/>,
-        loader: () =>fetch('books.json') 
-        
+           path:'/product/:id',
+         element: <ProductDetails></ProductDetails>,
+          loader:async({params})=>{
+            return fetch(`https://fakestoreapi.com/products/${params.id}`);
+          }
+        },
+
+      {
+        path:'/product/:category',
+        element:<Category></Category>,
+        loader:async({params})=>{
+          return fetch(`https://fakestoreapi.com/products/${params.category}`);
+        }
       },
       
     
